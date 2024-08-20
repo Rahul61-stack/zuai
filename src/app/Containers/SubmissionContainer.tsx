@@ -1,16 +1,17 @@
 import { memo } from "react";
 import UploadFile from "../Components/UploadFile";
 import Submission from "../Components/Submission";
+import Link from "next/link";
 
 const SubmissionContainer = () => {
   return (
     <>
       <div className="flex gap-2 justify-center items-end">
-        <div className="w-[600px]">
+        <div className="w-[336px] md:w-[500px] xl:w-[600px] flex flex-col gap-4">
           <div className="text-wrap flex">
-            <p className="text-black text-3xl font-bold">
+            <p className="text-black md:text-3xl text-[24px] font-bold">
               Hey IB Folks! Unsure about the quality of your answers?{" "}
-              <span className="text-zuai-purple-100 text-3xl font-bold">
+              <span className="text-zuai-purple-100">
                 We get you.
               </span>
             </p>
@@ -21,8 +22,8 @@ const SubmissionContainer = () => {
             <Submission />
           </div>
         </div>
-
-        <div className="flex flex-col justify-end">
+        <Link href={'/evaluation'}>Go to link</Link>
+        <div className="hidden lg:flex lg:flex-col lg:justify-end">
           <img src="/IMG2.png" />
           <img src="/IMG1.png" />
         </div>

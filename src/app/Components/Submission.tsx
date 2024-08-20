@@ -8,25 +8,27 @@ import { memo } from "react";
 const Submission = () => {
   return (
     <>
-      <div className="pt-10 pl-5">
-        <div>
-          <Label className="text-zuai-grey-100 pb-2">
+      <div className="flex flex-col gap-4 mt-2">
+        <div className="flex flex-col gap-2">
+          <Label className="text-zuai-grey-100 ">
             Select your coursework & subject*
           </Label>
-          <div className="flex gap-x-4 rounded-3xl pb-4">
+          <div className="flex flex-col md:flex-row gap-2 rounded-3xl">
             <Coursework />
             <Subject />
           </div>
         </div>
-        <Label className="text-zuai-grey-100 pb-2">
-          Enter your essay title* (Required)
-        </Label>
-        <Input
-          type="text"
-          placeholder="how nations work...."
-          className="w-[60%] rounded-3xl"
-        />
-        <div className="pt-4">
+        <div className="flex flex-col gap-2">
+          <Label className="text-zuai-grey-100 ">
+            Enter your essay title* (Required)
+          </Label>
+          <Input
+            type="text"
+            placeholder="how nations work...."
+            className="w-[90%] md:w-[60%] rounded-3xl"
+          />
+        </div>
+        <div className="">
           <Button className=" bg-zuai-grey-400 p-2 rounded-3xl">
             <div className="flex">
               <img
@@ -42,4 +44,4 @@ const Submission = () => {
   );
 };
 
-export default memo(Submission)
+export default memo(Submission);

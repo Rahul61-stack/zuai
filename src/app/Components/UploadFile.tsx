@@ -1,71 +1,76 @@
 "use client";
 
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { useCourseStore } from "../store";
+
 
 const FILE_SIZE_LIMIT = 25 * 1024 * 1024; // 25 MB
 
 function DragDrop() {
   const [file, setFile] = useState<any>(null);
-  const { updateUploadedCourseWork, uploadedCourseWork } = useCourseStore();
+  const [fileUrl, setFileUrl] = useState("");
+  const { updateUploadedCourseWork, uploadedCourseWork, updateFileURL } =
+    useCourseStore();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleUpload = (event: any) => {
-    const droppedFiles = event.target.files[0];
-    setFile(droppedFiles)
-    console.log(droppedFiles, "Rehul");
-    if (droppedFiles.type !== "application/pdf") {
+  const handleErrors = (droppedFile: File) => {
+    if (droppedFile.type !== "application/pdf") {
       setErrorMessage("Please upload a PDF file");
       return;
     }
-    if (droppedFiles.size > FILE_SIZE_LIMIT) {
+    if (droppedFile.size > FILE_SIZE_LIMIT) {
       setErrorMessage("File size exceeds the 25 MB limit.");
       return;
     }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const content = reader.result as string;
-      updateUploadedCourseWork(droppedFiles);
-      localStorage.setItem("uploadedCourseWork", content);
-      setErrorMessage(null);
-    };
-    reader.readAsDataURL(droppedFiles); // Stores the file as a Base64 encoded string
   };
 
+  //HANDLE MANUAL UPLOAD
+  const handleUpload = (event: any) => {
+    let blobFile: Blob;
+    const droppedFile = event.target.files[0];
+    setFile(droppedFile);
+    handleErrors(droppedFile);
+    blobFile = new Blob([droppedFile], { type: droppedFile.type });
+    const blobURL = URL.createObjectURL(blobFile);
+    updateFileURL(blobURL);
+    setFileUrl(blobURL);
+    // const link = document.createElement("a");
+    // link.href = blobURL;
+    // link.download = "downloaded-file";
+    // document.body.appendChild(link);
+
+    // link.click();
+
+    readPDF(droppedFile);
+  };
+
+  //HANDLE DRAG AND DROP UPLOAD
   const handleDrop = (event: any) => {
     event.preventDefault();
-    const droppedFiles = event.dataTransfer.files[0];
-    setFile(droppedFiles)
-    console.log(droppedFiles, "Rehul");
-    if (droppedFiles.type !== "application/pdf") {
-      setErrorMessage("Please upload a PDF file");
-      return;
-    }
-    if (droppedFiles.size > FILE_SIZE_LIMIT) {
-      setErrorMessage("File size exceeds the 25 MB limit.");
-      return;
-    }
+    const droppedFile = event.dataTransfer.files[0];
+    setFile(droppedFile);
+    handleErrors(droppedFile);
+    let blobFile = new Blob([droppedFile], { type: droppedFile.type });
+    const blobURL = URL.createObjectURL(blobFile);
+    updateFileURL(blobURL);
+    setFileUrl(blobURL);
+    readPDF(droppedFile);
+  };
 
+  const readPDF = (file: File) => {
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = (e) => {
       const content = reader.result as string;
-      updateUploadedCourseWork(droppedFiles);
+      console.log(content, "Rehul");
+      updateUploadedCourseWork(file);
       localStorage.setItem("uploadedCourseWork", content);
       setErrorMessage(null);
     };
-    reader.readAsDataURL(droppedFiles);
+    reader.readAsDataURL(file);
   };
-  // const readPDF = (file: any) => {
-  //   const reader = new FileReader();
-  //   reader.onload = (e) => {
-  //     console.log(e.target?.result);
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
-  console.log(uploadedCourseWork, "Rehul");
 
   return (
     <>
@@ -78,7 +83,6 @@ function DragDrop() {
         {file ? (
           <>
             <div className="flex">
-              <img />
               <p>{file.name}</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,6 +119,7 @@ function DragDrop() {
               Upload your file
             </label>
             <Input
+              onChange={handleUpload}
               id="file-upload"
               type="file"
               className="hidden"
