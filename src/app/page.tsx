@@ -1,4 +1,4 @@
-import EvaluationContainer from "./Containers/EvaluationContainer";
+import SubmissionContainer from "./Containers/SubmissionContainer";
 import Sidebar from "./Components/Sidebar";
 import CourseworkContainer from "./Containers/CourseworkContainer";
 
@@ -10,7 +10,7 @@ export default function Home() {
       </div>
 
       <div className="flex-grow flex flex-col justify-center items-center">
-        <EvaluationContainer />
+        <SubmissionContainer />
         <CourseworkContainer/>
       </div>
     </main>

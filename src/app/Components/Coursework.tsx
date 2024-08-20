@@ -14,7 +14,7 @@ const Coursework = () => {
     <>
       <Select>
         <SelectTrigger className="w-[180px] rounded-3xl">
-          <SelectValue placeholder="Select a fruit" />
+          <SelectValue placeholder="Coursework Type" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
