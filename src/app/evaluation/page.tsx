@@ -1,8 +1,12 @@
 "use client";
 import { memo, useState } from "react";
 import EvaluationBar from "../Components/EvalutationBar";
-import PDFViewer from "../Components/PDFViewer";
+// import PDFViewer from "../Components/PDFViewer";
+const PDFViewer = dynamic(() => import("../Components/PDFViewer"), {
+  ssr: false,
+})
 import { ZoomIn, MoveRight, ZoomOut, Maximize } from "lucide-react";
+import dynamic from "next/dynamic";
 const Page = () => {
   const [scale, setScale] = useState(0.8);
   return (

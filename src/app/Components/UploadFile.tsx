@@ -64,7 +64,6 @@ function DragDrop() {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = reader.result as string;
-      console.log(content, "Rehul");
       updateUploadedCourseWork(file);
       localStorage.setItem("uploadedCourseWork", content);
       setErrorMessage(null);
