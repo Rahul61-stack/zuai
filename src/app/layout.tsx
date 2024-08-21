@@ -20,10 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(poppings.className,"bg-zuai-slate-100")}>
       <div className="hidden md: md:h-screen md:w-[52px] md:border-r-1 md:bg-white md:fixed md:top-0 md:left-0 md:flex-shrink-0">
-        <Sidebar />
+        <Sidebar showMenu={false} />
       </div>
       <div className="md:h-screen md:w-[52px] md:border-r-1 md:bg-white md:fixed md:top-0 md:left-0 md:flex-shrink-0">
-        <Sidebar />
+        <Sidebar showMenu={true} />
       </div>
         {children}</body>
     </html>

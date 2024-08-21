@@ -1,9 +1,12 @@
 import { memo } from "react"
+import HamburgerMenu from "./HamburgerMenu"
+import { cn } from "@/lib/utils"
 
-const Sidebar = () =>{
+const Sidebar = ({showMenu}:{showMenu:boolean}) =>{
     return <>
-    <div className="flex-col bg-white h-[100%]">
+    <div className={cn("flex justify-between bg-white h-[100%]",(!showMenu?'flex-col':''))}>
             <img src="/logo.png"/>
+            <HamburgerMenu/>
     </div>
     </>
 }
