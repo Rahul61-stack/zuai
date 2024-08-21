@@ -1,28 +1,42 @@
 "use client";
 
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { useCourseStore } from "../store";
-
 
 const FILE_SIZE_LIMIT = 25 * 1024 * 1024; // 25 MB
 
 function DragDrop() {
   const [file, setFile] = useState<any>(null);
   const [fileUrl, setFileUrl] = useState("");
-  const { updateUploadedCourseWork, uploadedCourseWork, updateFileURL } =
-    useCourseStore();
+  const {
+    updateUploadedCourseWork,
+    uploadedCourseWork,
+    updateFileURL,
+    errors,
+    updateErrors,
+  } = useCourseStore();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleErrors = (droppedFile: File) => {
     if (droppedFile.type !== "application/pdf") {
       setErrorMessage("Please upload a PDF file");
+      updateErrors({
+        message: "Please upload a PDF file",
+        error: true,
+        errorFor: "upload",
+      });
       return;
     }
     if (droppedFile.size > FILE_SIZE_LIMIT) {
       setErrorMessage("File size exceeds the 25 MB limit.");
+      updateErrors({
+        message: "File size exceeds the 25 MB limit.",
+        error: true,
+        errorFor: "upload",
+      });
       return;
     }
   };

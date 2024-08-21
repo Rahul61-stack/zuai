@@ -14,12 +14,26 @@ type CourseStore = {
   uploadedCourseWork: {
     content: string;
     fileUrl: string;
+    name: string;
+    courseType: string;
+    subject: string;
   };
+  errors: {
+    message: string;
+    error: boolean;
+    errorFor: string;
+  }[];
   updateUploadedCourseWork: (file: File) => void;
   updateFileURL: (fileURL: string) => void;
-  updateName:(name:string)=>void;
+  updateName: (name: string) => void;
+  updateSubject: (name: string) => void;
+  updateCourseworkType: (name: string) => void;
   updateSubmissions: (data: any) => void;
-
+  updateErrors: (errorObj: {
+    message: string;
+    error: boolean;
+    errorFor: string;
+  }) => void;
 };
 
 export const useCourseStore = create<CourseStore>((set) => ({
@@ -31,6 +45,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
     courseType: "",
     subject: "",
   },
+  errors: [],
   updateUploadedCourseWork: (file: File) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -42,8 +57,25 @@ export const useCourseStore = create<CourseStore>((set) => ({
         },
       }));
     };
-    reader.readAsText(file); // Reads the content of the file
+    reader.readAsText(file);
   },
+
+  updateErrors: (errorObj: {
+    message: string;
+    error: boolean;
+    errorFor: string;
+  }) =>
+    set((state) => ({
+      ...state,
+      errors: [
+        ...state.errors,
+        {
+          error: errorObj.error,
+          message: errorObj.message,
+          errorFor: errorObj.errorFor,
+        },
+      ],
+    })),
   updateFileURL: (fileURL: string) =>
     set((state) => ({
       ...state,
@@ -52,13 +84,30 @@ export const useCourseStore = create<CourseStore>((set) => ({
         fileUrl: fileURL,
       },
     })),
-  updateName:(name:string)=>set((state)=>({
-    ...state,
-    uploadedCourseWork:{
-      ...state.uploadedCourseWork,
-      name:name
-    }
-  })),  
+  updateName: (name: string) =>
+    set((state) => ({
+      ...state,
+      uploadedCourseWork: {
+        ...state.uploadedCourseWork,
+        name: name,
+      },
+    })),
+  updateSubject: (subject: string) =>
+    set((state) => ({
+      ...state,
+      uploadedCourseWork: {
+        ...state.uploadedCourseWork,
+        subject: subject,
+      },
+    })),
+  updateCourseworkType: (courseType: string) =>
+    set((state) => ({
+      ...state,
+      uploadedCourseWork: {
+        ...state.uploadedCourseWork,
+        courseType: courseType,
+      },
+    })),
   updateSubmissions: (data: any) =>
     set((state) => ({
       ...state,

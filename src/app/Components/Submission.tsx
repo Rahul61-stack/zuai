@@ -1,11 +1,26 @@
+'use client'
+
 import { Label } from "@radix-ui/react-label";
 import Coursework from "./Coursework";
 import Subject from "./Subject";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { memo } from "react";
+import { memo, useMemo } from "react";
+import { useCourseStore } from "../store";
 
 const Submission = () => {
+  const {
+    uploadedCourseWork,
+    updateName,
+    errors,
+    updateErrors,
+  } = useCourseStore();
+  const evaluationDisabled = useMemo(() => {
+    if(Object.values(uploadedCourseWork).some((value) => value === "")) {
+      return true
+    }
+    else return false
+  },[])
   return (
     <>
       <div className="flex flex-col gap-4 mt-2">
@@ -23,9 +38,11 @@ const Submission = () => {
             Enter your essay title* (Required)
           </Label>
           <Input
+            value={uploadedCourseWork.name}
             type="text"
             placeholder="how nations work...."
             className="w-[90%] md:w-[60%] rounded-3xl"
+            onChange={(e) => updateName(e.target.value)}
           />
         </div>
         <div className="">

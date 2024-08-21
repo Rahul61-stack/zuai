@@ -1,9 +1,13 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import UploadFile from "../Components/UploadFile";
 import Submission from "../Components/Submission";
 import Link from "next/link";
 
 const SubmissionContainer = () => {
+  // const [errors,setErrors] = useState<{errorMsg:string,error:boolean}>({
+  //   errorMsg: '',
+  //   error: false
+  // })
   return (
     <>
       <div className="flex gap-2 justify-center items-end">
