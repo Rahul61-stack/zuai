@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Label } from "@radix-ui/react-label";
 import Coursework from "./Coursework";
@@ -7,20 +7,34 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { memo, useMemo } from "react";
 import { useCourseStore } from "../store";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const Submission = () => {
+  const router = useRouter();
   const {
     uploadedCourseWork,
     updateName,
     errors,
     updateErrors,
+    updateSubmissions,
   } = useCourseStore();
   const evaluationDisabled = useMemo(() => {
-    if(Object.values(uploadedCourseWork).some((value) => value === "")) {
-      return true
-    }
-    else return false
-  },[])
+    if (Object.values(uploadedCourseWork).some((value) => value === "")) {
+      return true;
+    } else return false;
+  }, [uploadedCourseWork]);
+  console.log(uploadedCourseWork, "Rehul");
+  const handleSubmission = () => {
+    let existingEssays = localStorage.getItem('essays');
+    let parsedEssays = existingEssays ? JSON.parse(existingEssays) : [];
+    let updatedEssays = [...parsedEssays, uploadedCourseWork];
+    let temp = JSON.stringify(updatedEssays);
+    console.log(temp, "Rehul");
+    localStorage.setItem("essays", temp);
+    updateSubmissions(uploadedCourseWork);
+    router.push("/evaluation");
+  };
   return (
     <>
       <div className="flex flex-col gap-4 mt-2">
@@ -46,7 +60,14 @@ const Submission = () => {
           />
         </div>
         <div className="">
-          <Button className=" bg-zuai-grey-400 p-2 rounded-3xl">
+          <Button
+            className={cn(
+              evaluationDisabled ? " bg-zuai-grey-400 " : "bg-zuai-purple-100",
+              "p-2 rounded-3xl"
+            )}
+            onClick={() => handleSubmission()}
+            disabled={evaluationDisabled}
+          >
             <div className="flex">
               <img
                 src="/buttonimg.png"

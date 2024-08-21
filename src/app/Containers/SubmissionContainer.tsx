@@ -26,7 +26,6 @@ const SubmissionContainer = () => {
             <Submission />
           </div>
         </div>
-        <Link href={'/evaluation'}>Go to link</Link>
         <div className="hidden lg:flex lg:flex-col lg:justify-end">
           <img src="/IMG2.png" />
           <img src="/IMG1.png" />
