@@ -48,6 +48,7 @@ function DragDrop() {
     setFile(droppedFile);
     handleErrors(droppedFile);
     blobFile = new Blob([droppedFile], { type: droppedFile.type });
+
     const blobURL = URL.createObjectURL(blobFile);
     updateFileURL(blobURL);
     setFileUrl(blobURL);
@@ -75,14 +76,14 @@ function DragDrop() {
   };
 
   const readPDF = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const content = reader.result as string;
-      updateUploadedCourseWork(file);
-      localStorage.setItem("uploadedCourseWork", content);
-      setErrorMessage(null);
-    };
-    reader.readAsDataURL(file);
+    updateUploadedCourseWork(file);
+    // const reader = new FileReader();
+    // reader.onload = (e) => {
+    //   const content = reader.result as string;
+    //   // localStorage.setItem("uploadedCourseWork", content);
+    //   setErrorMessage(null);
+    // };
+    // reader.readAsDataURL(file);
   };
 
   return (
@@ -118,7 +119,7 @@ function DragDrop() {
           <>
             <img src="/upload_file.png" alt="Upload File" className="mb-4" />
             <div className="flex flex-col items-center justify-center">
-              <p className="text-lg text-zuai-grey-100 font-semibold mb-2">
+              <p className="md:text-lg text-zuai-grey-100 sm:text-base font-semibold mb-2">
                 Drag and drop a PDF
               </p>
               <p className="text-xs text-zuai-grey-100 mb-4 pb-2">
@@ -127,7 +128,7 @@ function DragDrop() {
             </div>
             <label
               htmlFor="file-upload"
-              className="cursor-pointer text-zuai-purple-100 text-blue-500 border border-blue-500 px-4 py-2 shadow-sm opacity-95 shadow-zuai-purple-50 bg-blue-100 hover:bg-blue-200 rounded-3xl"
+              className="cursor-pointer text-zuai-purple-100 border  px-4 py-2 shadow-sm opacity-95 shadow-zuai-purple-50  hover:bg-blue-200 rounded-3xl"
             >
               Upload your file
             </label>

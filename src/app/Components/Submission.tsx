@@ -9,6 +9,7 @@ import { memo, useMemo } from "react";
 import { useCourseStore } from "../store";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Submission = () => {
   const router = useRouter();
@@ -24,13 +25,11 @@ const Submission = () => {
       return true;
     } else return false;
   }, [uploadedCourseWork]);
-  console.log(uploadedCourseWork, "Rehul");
   const handleSubmission = () => {
-    let existingEssays = localStorage.getItem('essays');
+    let existingEssays = localStorage.getItem("essays");
     let parsedEssays = existingEssays ? JSON.parse(existingEssays) : [];
     let updatedEssays = [...parsedEssays, uploadedCourseWork];
     let temp = JSON.stringify(updatedEssays);
-    console.log(temp, "Rehul");
     localStorage.setItem("essays", temp);
     updateSubmissions(uploadedCourseWork);
     router.push("/evaluation");
@@ -69,7 +68,10 @@ const Submission = () => {
             disabled={evaluationDisabled}
           >
             <div className="flex">
-              <img
+              <Image
+                alt="buttonimg"
+                height={24}
+                width={24}
                 src="/buttonimg.png"
                 className="bg-white rounded-full mr-2"
               />

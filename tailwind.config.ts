@@ -17,27 +17,28 @@ const config = {
         "2xl": "1400px",
       },
     },
-    colors:{
-      transparent: 'transparent',
-      current: 'currentColor',
-      'white': '#ffffff',
-      'zuai-purple':{
-        50:'#CEC4EB',
-        100:'#6947BF'
-      },
-      'zuai-slate':{
-        100:'#e5ecf3'
-      },
-
-      'zuai-grey':{
-        100:'#7A8196',
-        400:'#ADB8C9'
-      },
-      'zuai-white':{
-        500:'#FCFBFD'
-      }
-    },
+ 
     extend: {
+      colors:{
+        transparent: 'transparent',
+        current: 'currentColor',
+        'white': '#ffffff',
+        'zuai-purple':{
+          50:'#CEC4EB',
+          100:'#6947BF'
+        },
+        'zuai-slate':{
+          100:'#e5ecf3'
+        },
+  
+        'zuai-grey':{
+          100:'#7A8196',
+          400:'#ADB8C9'
+        },
+        'zuai-white':{
+          500:'#FCFBFD'
+        }
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

@@ -2,6 +2,7 @@ import { memo, useState } from "react";
 import UploadFile from "../Components/UploadFile";
 import Submission from "../Components/Submission";
 import Link from "next/link";
+import Image from "next/image";
 
 const SubmissionContainer = () => {
   // const [errors,setErrors] = useState<{errorMsg:string,error:boolean}>({
@@ -10,7 +11,7 @@ const SubmissionContainer = () => {
   // })
   return (
     <>
-      <div className="flex gap-2 justify-center items-end">
+      <div className="flex gap-2 justify-center items-end pt-8">
         <div className="w-[336px] md:w-[500px] xl:w-[600px] flex flex-col gap-4">
           <div className="text-wrap flex">
             <p className="text-black md:text-3xl text-[24px] font-bold">
@@ -27,8 +28,8 @@ const SubmissionContainer = () => {
           </div>
         </div>
         <div className="hidden lg:flex lg:flex-col lg:justify-end">
-          <img src="/IMG2.png" />
-          <img src="/IMG1.png" />
+          <Image alt="img2" width={228} height={136} src="/IMG2.png" />
+          <Image alt="img1" width={290} height={392} src="/IMG1.png" />
         </div>
       </div>
     </>

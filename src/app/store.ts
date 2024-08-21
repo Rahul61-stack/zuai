@@ -1,3 +1,4 @@
+import { convertURIToBinary } from "@/lib/utils";
 import { create } from "zustand";
 
 interface Coursework {
@@ -39,8 +40,8 @@ type CourseStore = {
 export const useCourseStore = create<CourseStore>((set) => ({
   submissions: [],
   uploadedCourseWork: {
-    content: "",
-    fileUrl: "",
+    content: "",//bas64
+    fileUrl: "",//bloburl
     name: "",
     courseType: "",
     subject: "",
@@ -57,7 +58,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
         },
       }));
     };
-    reader.readAsText(file);
+    reader.readAsDataURL(file);
   },
 
   updateErrors: (errorObj: {

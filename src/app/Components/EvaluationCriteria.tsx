@@ -61,19 +61,17 @@ const EvaluationCriteria = ({
                     r="15.91549431"
                   />
                 </svg>
-                <div className="absolute inset-0 flex items-center justify-center text-sm font-bold">
-                  {cn(evaluation / 10, "/", "10")}
+                <div className="absolute inset-0 flex items-center justify-center text-xs font-bold">
+                  {parseInt((evaluation / 10).toString()) + `/10`}
                 </div>
               </div>
               <div className="flex flex-col justify-start w-full items-start">
-                <p className="text-xs text-[#98A1BB]">
-                  {cn(criteriaName, ":")}
-                </p>
-                <p className="text-md">{criteriaValue}</p>
+                <p className="text-xs text-[#98A1BB]">{criteriaName + " "+":"}</p>
+                <p className="text-md text-start">{criteriaValue}</p>
               </div>
             </div>
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="mx-4">
             <div className="flex flex-col gap-4">
               <p className="text-[#5B6170]">{summary}</p>
               <div className="flex flex-col justify-start w-full gap-2">
