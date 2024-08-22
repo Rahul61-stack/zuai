@@ -71,7 +71,7 @@ const Page = () => {
         </div>
       </MobileView>
       <BrowserView>
-        <div className="flex flex-row pt-16 px-6 pb-6 gap-6">
+        <div className="flex flex-row pt-16 px-20 pb-6 gap-6">
           <div className="basis-1/2 p-3 bg-white rounded-3xl bg-opacity-45">
             <div className="py-2 px-3 rounded-xl bg-white w-fit">
             <p>{uploadedCourseWork.name}</p>
@@ -88,7 +88,7 @@ const Page = () => {
             </div>
             <PDFViewer scale={scale} />
           </div>
-          <div className="basis-1/2 flex flex-col justify-between gap-3.5">
+          <div className="basis-1/2 flex max-h- flex-col justify-between gap-3.5">
             <EvaluationBar />
             {evaluationCriteria.map((criteria, idx) => (
               <div key={idx} className="gap-2">

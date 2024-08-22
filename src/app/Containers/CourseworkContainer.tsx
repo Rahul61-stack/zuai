@@ -8,6 +8,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "../store";
 import { useRouter } from "next/navigation";
+import { subjectKeyMap } from "../Constants/constants";
 pdfjs.GlobalWorkerOptions.workerSrc =
   "//unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs";
 
@@ -93,12 +94,12 @@ const CourseworkContainer = () => {
                       height="16"
                     />
                     <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                      {data.subject}
+                      {subjectKeyMap[`${data.subject}`] }
                     </p>
                   </div>
                   <div className="flex bg-white rounded-3xl">
                     <Image alt="logo" src="/time.png" width="13" height="16" />
-                    <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
+                    <p className="text-[11px] py-0.5 px-2">
                       10 min read
                     </p>
                   </div>

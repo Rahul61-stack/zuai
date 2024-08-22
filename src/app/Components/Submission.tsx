@@ -26,16 +26,13 @@ const Submission = () => {
     } else return false;
   }, [uploadedCourseWork]);
   const handleSubmission = () => {
-    if(localStorage){
-
-      let existingEssays = localStorage.getItem("essays");
-      let parsedEssays = existingEssays ? JSON.parse(existingEssays) : [];
-      let updatedEssays = [...parsedEssays, uploadedCourseWork];
-      let temp = JSON.stringify(updatedEssays);
-      localStorage.setItem("essays", temp);
-      updateSubmissions(uploadedCourseWork);
-      router.push("/evaluation");
-    }
+    let existingEssays = localStorage.getItem("essays");
+    let parsedEssays = existingEssays ? JSON.parse(existingEssays) : [];
+    let updatedEssays = [...parsedEssays, uploadedCourseWork];
+    let temp = JSON.stringify(updatedEssays);
+    localStorage.setItem("essays", temp);
+    updateSubmissions(uploadedCourseWork);
+    router.push("/evaluation");
   };
   return (
     <>

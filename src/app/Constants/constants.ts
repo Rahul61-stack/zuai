@@ -1,3 +1,12 @@
+export const subjectKeyMap:{[key:string]:string}={
+  history:'History',
+  eco:'Economics',
+  bio:'Biology',
+  phy:'Physics',
+  chem:'Chemistry',
+  cs:'Computer Science'
+}
+
 export const evaluationCriteria = [
   {
     criteriaName: "Criteria A",
