@@ -13,11 +13,11 @@ import CourseworkCard from "../Components/CourseworkCard";
 pdfjs.GlobalWorkerOptions.workerSrc =
   "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
 
-const essayData = JSON.parse(localStorage.getItem("essays") || "[]");
+const essayData:any[] = JSON.parse(localStorage.getItem("essays") || "[]") || [];
 const CourseworkContainer = () => {
   const { setCourseWork } = useCourseStore();
   const [viewAll, setViewAll] = useState(false);
-  const [filteredEssays, setFilteredEssays] = useState(essayData);
+  const [filteredEssays, setFilteredEssays] = useState<any[]>(essayData);
   const types = [
     { value: "ias", label: "IAs" },
     { value: "ee", label: "EE" },
@@ -28,9 +28,13 @@ const CourseworkContainer = () => {
   const router = useRouter();
   // const essayDataToShow = useMemo(() => {
   // }, [selectedType, viewAll]);
-
+  console.log(filteredEssays, "Rehul");
   useEffect(() => {
-    if (!viewAll) setFilteredEssays([essayData[0],essayData[1]]);
+    if (essayData.length === 0) return;
+    if (!viewAll)
+      setFilteredEssays(
+        essayData.length === 1 ? [essayData[0]] : [essayData[0], essayData[1]]
+      );
     else if (selectedType === "all") setFilteredEssays(essayData);
     else
       setFilteredEssays(

@@ -10,12 +10,6 @@ import { useCourseStore } from "../store";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { TooltipContent } from "@radix-ui/react-tooltip";
 import { LoadingSpinner } from "./Loader";
 
 const Submission = () => {
@@ -73,9 +67,7 @@ const Submission = () => {
           />
         </div>
         <div className="">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
+        
                 {" "}
                 <Button
                   className={cn(
@@ -102,10 +94,7 @@ const Submission = () => {
                     )}
                   </div>
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+              
         </div>
       </div>
     </>

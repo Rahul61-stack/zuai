@@ -34,8 +34,6 @@ function DragDrop() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleErrors = (droppedFile: File) => {
-    console.log('Rehul2')
-
     if (droppedFile.type !== "application/pdf") {
       setErrorMessage("Please upload a PDF file");
       updateErrors({
@@ -57,18 +55,15 @@ function DragDrop() {
       removeErrors("upload");
       return;
     }
-
   };
 
   //HANDLE MANUAL UPLOAD
   const handleUpload = (event: any) => {
     const droppedFile = event.target.files[0];
-    console.log('Rehul1')
     handleErrors(droppedFile);
   };
 
   const convertToBlobAndSave = (droppedFile: File) => {
-    console.log('Rehul3')
     setFile(droppedFile);
     let blobFile: Blob;
     blobFile = new Blob([droppedFile], { type: droppedFile.type });
@@ -87,8 +82,6 @@ function DragDrop() {
 
   const readPDF = (file: File) => {
     updateUploadedCourseWork(file);
-    console.log('Rehul4')
-
   };
 
   return (
@@ -96,8 +89,8 @@ function DragDrop() {
       <div
         className="flex flex-col items-center justify-center border-dashed border-2 border-zuai-purple-50 bg-white p-16 rounded-3xl"
         onDragOver={(event) => event.preventDefault()}
-        onDrop={(e)=>handleDrop(e)}
-        onChange={(e)=>handleUpload(e)}
+        onDrop={(e) => handleDrop(e)}
+        onChange={(e) => handleUpload(e)}
       >
         {file ? (
           <>
@@ -107,14 +100,14 @@ function DragDrop() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 className="size-6"
                 onClick={() => setFile(null)}
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
               </svg>
@@ -122,7 +115,13 @@ function DragDrop() {
           </>
         ) : (
           <>
-            <Image width={30} height={38} src="/upload_file.png" alt="Upload File" className="mb-4" />
+            <Image
+              width={30}
+              height={38}
+              src="/upload_file.png"
+              alt="Upload File"
+              className="mb-4"
+            />
             <div className="flex flex-col items-center justify-center">
               <p className="md:text-lg text-zuai-grey-100 sm:text-base font-semibold mb-2">
                 Drag and drop a PDF
