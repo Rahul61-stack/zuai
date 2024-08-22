@@ -54,5 +54,14 @@ Assumptions made during development:
    - Shows relevant details such as title, subject, word count, etc.
 
    ## Bonus Features
+- **Animations**: Smooth transitions between different states.
+- **Micro-interactions**: For enhanced user feedback.
 
-   
+   ## Advanced Local Storage Features
+- **Mock API Integration**: Mock API calls for simulating server-side persistence (using Mock API from - https://dummyjson.com/).
+
+## Challenges:
+The biggest challenge for me was integrating the PDF Viewer library pdfjs, the configuration of the library on NextJS is particularly difficult since the react-pdf library latest version is not compatible with pdfjs latest version. This lead to me trying a lot of combinations until I got it to work.
+
+Other than that I faced minor issues while setting up Zustand.
+

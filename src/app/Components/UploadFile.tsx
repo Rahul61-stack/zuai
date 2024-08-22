@@ -34,6 +34,8 @@ function DragDrop() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleErrors = (droppedFile: File) => {
+    console.log('Rehul2')
+
     if (droppedFile.type !== "application/pdf") {
       setErrorMessage("Please upload a PDF file");
       updateErrors({
@@ -55,15 +57,18 @@ function DragDrop() {
       removeErrors("upload");
       return;
     }
+
   };
 
   //HANDLE MANUAL UPLOAD
   const handleUpload = (event: any) => {
     const droppedFile = event.target.files[0];
+    console.log('Rehul1')
     handleErrors(droppedFile);
   };
 
   const convertToBlobAndSave = (droppedFile: File) => {
+    console.log('Rehul3')
     setFile(droppedFile);
     let blobFile: Blob;
     blobFile = new Blob([droppedFile], { type: droppedFile.type });
@@ -82,6 +87,8 @@ function DragDrop() {
 
   const readPDF = (file: File) => {
     updateUploadedCourseWork(file);
+    console.log('Rehul4')
+
   };
 
   return (
@@ -89,8 +96,8 @@ function DragDrop() {
       <div
         className="flex flex-col items-center justify-center border-dashed border-2 border-zuai-purple-50 bg-white p-16 rounded-3xl"
         onDragOver={(event) => event.preventDefault()}
-        onDrop={handleDrop}
-        onChange={handleUpload}
+        onDrop={(e)=>handleDrop(e)}
+        onChange={(e)=>handleUpload(e)}
       >
         {file ? (
           <>

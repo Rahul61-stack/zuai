@@ -6,6 +6,7 @@ const CourseworkContainer = dynamic(() => import("./Containers/CourseworkContain
 });
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+import { LoadingSpinner } from "./Components/Loader";
 
 export default function Home() {
   return (

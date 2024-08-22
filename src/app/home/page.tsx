@@ -1,10 +1,14 @@
-'use client'
+"use client";
 import { Suspense } from "react";
 import SubmissionContainer from "../Containers/SubmissionContainer";
 import dynamic from "next/dynamic";
-const CourseworkContainer = dynamic(() => import("../Containers/CourseworkContainer"), {
-  ssr: false,
-});
+import { LoadingSpinner } from "../Components/Loader";
+const CourseworkContainer = dynamic(
+  () => import("../Containers/CourseworkContainer"),
+  {
+    ssr: false,
+  }
+);
 
 const Page = () => {
   return (

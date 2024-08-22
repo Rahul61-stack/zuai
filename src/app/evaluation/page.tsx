@@ -88,7 +88,7 @@ const Page = () => {
             </div>
             <PDFViewer scale={scale} />
           </div>
-          <div className="basis-1/2 flex max-h- flex-col justify-between gap-3.5">
+          <div className="basis-1/2 flex max-h- flex-col justify-start gap-3.5">
             <EvaluationBar />
             {evaluationCriteria.map((criteria, idx) => (
               <div key={idx} className="gap-2">

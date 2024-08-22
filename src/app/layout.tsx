@@ -21,19 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(poppings.className, "bg-zuai-slate-100")}>
-        {/* <div className="hidden md: md:h-screen md:w-[52px] md:border-r-1 md:bg-white md:fixed md:top-0 md:left-0 md:flex-shrink-0">
-        <Sidebar showMenu={false} />
-      </div>
-      <div className="md:h-screen md:w-[52px] md:border-r-1 md:bg-white md:fixed md:top-0 md:left-0 md:flex-shrink-0">
-        <Sidebar showMenu={true} />
-      </div> */}
-<div className="flex flex-col md:flex-row">
-
+      <body
+        className={cn(
+          poppings.className,
+          "flex flex-col md:flex-row bg-zuai-slate-100"
+        )}
+      >
         <Sidebar />
-
-        {children}
-</div>
+        <div className=" flex justify-center w-full grow md:ml-20 mt-10 md:mt-0 ml-0">
+          {children}
+        </div>
       </body>
     </html>
   );

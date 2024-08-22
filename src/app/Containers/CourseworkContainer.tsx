@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Document, Page, pdfjs } from "react-pdf";
-import { useState, memo, useMemo } from "react";
+import { useState, memo, useMemo, useEffect } from "react";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import { BrowserView, MobileView } from "react-device-detect";
 import { cn } from "@/lib/utils";
@@ -13,11 +13,11 @@ import CourseworkCard from "../Components/CourseworkCard";
 pdfjs.GlobalWorkerOptions.workerSrc =
   "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
 
+const essayData = JSON.parse(localStorage.getItem("essays") || "[]");
 const CourseworkContainer = () => {
   const { setCourseWork } = useCourseStore();
   const [viewAll, setViewAll] = useState(false);
-  const essayData = JSON.parse(localStorage.getItem("essays") || "[]");
-
+  const [filteredEssays, setFilteredEssays] = useState(essayData);
   const types = [
     { value: "ias", label: "IAs" },
     { value: "ee", label: "EE" },
@@ -26,11 +26,16 @@ const CourseworkContainer = () => {
   ];
   const [selectedType, setSelectedType] = useState("all");
   const router = useRouter();
-  const essayDataToShow = useMemo(() => {
-    if (!viewAll) return essayData.splice(0, 2);
-    if (selectedType === "all") return essayData;
+  // const essayDataToShow = useMemo(() => {
+  // }, [selectedType, viewAll]);
+
+  useEffect(() => {
+    if (!viewAll) setFilteredEssays([essayData[0],essayData[1]]);
+    else if (selectedType === "all") setFilteredEssays(essayData);
     else
-      return essayData.filter((data: any) => data.courseType === selectedType);
+      setFilteredEssays(
+        essayData.filter((data: any) => data.courseType === selectedType)
+      );
   }, [selectedType, viewAll]);
 
   const handleSetCourse = (data: any) => {
@@ -74,8 +79,8 @@ const CourseworkContainer = () => {
         <></>
       )}
       <div className="md:grid md:grid-cols-2 flex flex-col mx-2 gap-4 md:justify-center">
-        {essayDataToShow.map((data: any, index: number) => (
-          <div key={index} className="transition ease-in-out duration-300">
+        {filteredEssays.map((data: any, index: number) => (
+          <div key={index} className="animate-fadein ">
             <MobileView>
               <div
                 onClick={() => handleSetCourse(data)}
@@ -157,7 +162,7 @@ const CourseworkContainer = () => {
       </div>
       <div onClick={() => setViewAll((prev) => !prev)}>
         <p className="text-center text-[#98A1BB] text-lg cursor-pointer py-4">
-          {viewAll?"View less":"View all"}
+          {viewAll ? "View less" : "View all"}
         </p>
       </div>
     </div>

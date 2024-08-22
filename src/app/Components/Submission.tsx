@@ -5,7 +5,7 @@ import Coursework from "./Coursework";
 import Subject from "./Subject";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 import { useCourseStore } from "../store";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -16,8 +16,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
+import { LoadingSpinner } from "./Loader";
 
 const Submission = () => {
+  const [showLoader, setShowLoader] = useState(false);
   const router = useRouter();
   const {
     uploadedCourseWork,
@@ -32,13 +34,19 @@ const Submission = () => {
     } else return false;
   }, [uploadedCourseWork]);
   const handleSubmission = () => {
-    let existingEssays = localStorage.getItem("essays");
-    let parsedEssays = existingEssays ? JSON.parse(existingEssays) : [];
-    let updatedEssays = [...parsedEssays, uploadedCourseWork];
-    let temp = JSON.stringify(updatedEssays);
-    localStorage.setItem("essays", temp);
-    updateSubmissions(uploadedCourseWork);
-    router.push("/evaluation");
+    setShowLoader(true);
+    fetch("https://dummyjson.com/posts/1")
+      .then((res) => res.json())
+      .then(() => {
+        let existingEssays = localStorage.getItem("essays");
+        let parsedEssays = existingEssays ? JSON.parse(existingEssays) : [];
+        let updatedEssays = [...parsedEssays, uploadedCourseWork];
+        let temp = JSON.stringify(updatedEssays);
+        localStorage.setItem("essays", temp);
+        updateSubmissions(uploadedCourseWork);
+        router.push("/evaluation");
+        setShowLoader(false);
+      });
   };
   return (
     <>
@@ -87,7 +95,11 @@ const Submission = () => {
                       src="/buttonimg.png"
                       className="bg-white rounded-full mr-2"
                     />
-                    <p className="text-white">Evaluate your score</p>
+                    {showLoader ? (
+                      <LoadingSpinner className="stroke-white" stroke="#FF0000" />
+                    ) : (
+                      <p className="text-white">Evaluate your score</p>
+                    )}
                   </div>
                 </Button>
               </TooltipTrigger>

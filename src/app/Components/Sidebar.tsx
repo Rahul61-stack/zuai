@@ -6,10 +6,9 @@ import { BrowserView, MobileView } from "react-device-detect";
 
 const Sidebar = () => {
   return (
-    <div>
       <div 
         className={cn(
-          "flex justify-between items-center align-middle gap-2 bg-white h-[100%] px-2 sm:flex-row md:flex-col py-2 md:h-full"
+          "fixed left-0 flex justify-between items-center align-middle gap-2 bg-white md:h-screen h-[60px] w-screen md:w-[52px] px-2 sm:flex-row md:flex-col py-2"
         )}
       >
         <div className="flex sm:flex-row md:flex-col gap-2 items-center">
@@ -32,21 +31,6 @@ const Sidebar = () => {
         <HamburgerMenu />
         </div>
       </div>
-      {/* <MobileView>
-      </MobileView>
-      <BrowserView>
-        <div
-          className={cn(
-            "flex flex-col justify-start w-fit gap-2 bg-white px-2 "
-          )}
-        >
-          <div className="flex sm:flex-row md:flex-col gap-2 items-center">
-            <Image alt="logo" height={36} width={36} src="/logo.png" />
-           
-          </div>
-        </div>
-      </BrowserView> */}
-    </div>
   );
 };
 
