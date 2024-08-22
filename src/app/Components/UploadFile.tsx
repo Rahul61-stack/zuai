@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import React, { useMemo, useState } from "react";
 import { useCourseStore } from "../store";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const FILE_SIZE_LIMIT = 25 * 1024 * 1024; // 25 MB
 
@@ -114,7 +115,7 @@ function DragDrop() {
           </>
         ) : (
           <>
-            <img src="/upload_file.png" alt="Upload File" className="mb-4" />
+            <Image width={30} height={38} src="/upload_file.png" alt="Upload File" className="mb-4" />
             <div className="flex flex-col items-center justify-center">
               <p className="md:text-lg text-zuai-grey-100 sm:text-base font-semibold mb-2">
                 Drag and drop a PDF

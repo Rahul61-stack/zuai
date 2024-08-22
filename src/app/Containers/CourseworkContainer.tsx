@@ -10,7 +10,7 @@ import { useCourseStore } from "../store";
 import { useRouter } from "next/navigation";
 import { subjectKeyMap } from "../Constants/constants";
 pdfjs.GlobalWorkerOptions.workerSrc =
-  "//unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs";
+  "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
 
 const CourseworkContainer = () => {
   const { setCourseWork } = useCourseStore();
