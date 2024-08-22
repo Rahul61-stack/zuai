@@ -12,7 +12,12 @@ pdfjs.GlobalWorkerOptions.workerSrc =
 
 const CourseworkContainer = () => {
   const [viewAll, setViewAll] = useState(false);
-  const essayData = JSON.parse(localStorage.getItem("essays") || "[]");
+  const essayData = useMemo(() => {
+    if(localStorage){
+      return JSON.parse(localStorage.getItem("essays") || "[]");
+    }
+    else return []
+  },[])
   const types = [
     { value: "ias", label: "IAs" },
     { value: "ee", label: "EE" },
