@@ -1,23 +1,21 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useState, memo, useMemo } from "react";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import { BrowserView, MobileView } from "react-device-detect";
 import { cn } from "@/lib/utils";
+import { useCourseStore } from "../store";
+import { useRouter } from "next/navigation";
 pdfjs.GlobalWorkerOptions.workerSrc =
-  "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
+  "//unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs";
 
 const CourseworkContainer = () => {
+  const { setCourseWork } = useCourseStore();
   const [viewAll, setViewAll] = useState(false);
-  const essayData = useMemo(() => {
-    if(localStorage){
-      return JSON.parse(localStorage.getItem("essays") || "[]");
-    }
-    else return []
-  },[])
+  const essayData = JSON.parse(localStorage.getItem("essays") || "[]");
+
   const types = [
     { value: "ias", label: "IAs" },
     { value: "ee", label: "EE" },
@@ -25,12 +23,18 @@ const CourseworkContainer = () => {
     { value: "cas", label: "CAS" },
   ];
   const [selectedType, setSelectedType] = useState("all");
+  const router = useRouter();
   const essayDataToShow = useMemo(() => {
     if (!viewAll) return essayData.splice(0, 2);
     if (selectedType === "all") return essayData;
     else
       return essayData.filter((data: any) => data.courseType === selectedType);
   }, [selectedType, viewAll]);
+
+  const handleSetCourse = (data: any) => {
+    setCourseWork(data);
+    router.push("/evaluation");
+  };
 
   return (
     <div className="flex flex-col justify-center items-center gap-2 pt-8 w-full">
@@ -67,13 +71,14 @@ const CourseworkContainer = () => {
       ) : (
         <></>
       )}
-      <div className="md:grid md:grid-cols-2 md:justify-center md:gap-4">
+      <div className="md:grid md:grid-cols-2 flex flex-col mx-2 gap-4 md:justify-center">
         {essayDataToShow.map((data: any, index: number) => (
           <div key={index}>
             <MobileView>
               <div
+                onClick={() => handleSetCourse(data)}
                 key={index}
-                className="bg-[#D8E3F4] bg-opacity-30 w-[336px] border-2 border-[#D8E3F4] flex flex-col gap-3 justify-start items-start p-3 rounded-xl"
+                className="bg-[#D8E3F4] bg-opacity-30 w-[336px] border-2 border-[#D8E3F4] flex flex-col gap-3 justify-start items-start p-3 rounded-xl cursor-pointer"
               >
                 <p className="text-lg font-semibold">{data.name}</p>
                 <p className="text-[#7A8196] text-[11px] font-medium">
@@ -124,7 +129,10 @@ const CourseworkContainer = () => {
               </div>
             </MobileView>
             <BrowserView>
-              <div className="flex flex-row gap-2 bg-[#D8E3F4]  w-[440px] bg-opacity-30 border-[#D8E3F4] border-2 rounded-xl p-3">
+              <div
+                onClick={() => handleSetCourse(data)}
+                className="flex flex-row gap-2 bg-[#D8E3F4]  w-[440px] bg-opacity-30 border-[#D8E3F4] border-2 rounded-xl p-3 cursor-pointer"
+              >
                 <Document
                   file={data.content}
                   onLoadError={(error) =>
@@ -216,7 +224,9 @@ const CourseworkContainer = () => {
         ))}
       </div>
       <div onClick={() => setViewAll((prev) => !prev)}>
-        <p className="text-center text-[#98A1BB] text-lg cursor-pointer py-4">View all</p>
+        <p className="text-center text-[#98A1BB] text-lg cursor-pointer py-4">
+          View all
+        </p>
       </div>
     </div>
   );

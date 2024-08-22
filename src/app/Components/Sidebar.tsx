@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { BrowserView, MobileView } from "react-device-detect";
 
-const Sidebar = ({ showMenu }: { showMenu: boolean }) => {
+const Sidebar = () => {
   return (
     <>
       <MobileView>
@@ -22,7 +22,7 @@ const Sidebar = ({ showMenu }: { showMenu: boolean }) => {
       <BrowserView>
         <div
           className={cn(
-            "flex flex-col justify-between items-center align-middle gap-2 bg-white h-[100%] px-2 "
+            "flex flex-col justify-start w-fit gap-2 bg-white px-2 "
           )}
         >
           <div className="flex sm:flex-row md:flex-col gap-2 items-center">

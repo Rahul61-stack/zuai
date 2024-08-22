@@ -12,7 +12,7 @@ import EvaluationCriteria from "../Components/EvaluationCriteria";
 import { evaluationCriteria } from "../Constants/constants";
 import { useCourseStore } from "../store";
 const Page = () => {
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
   const {uploadedCourseWork} = useCourseStore()
   const [scale, setScale] = useState(0.8);
   return (
@@ -36,9 +36,9 @@ const Page = () => {
             </div>
           </div>
           {showDetails ? (
-            <div className="w-full p-3 bg-white rounded-3xl bg-opacity-45">
+            <div className="w-full p-3 bg-white rounded-3xl bg-opacity-45 flex flex-col gap-2">
               <div className="py-2 px-3 rounded-xl bg-white w-fit">
-                <p>{uploadedCourseWork.name}</p>
+                <p>{uploadedCourseWork.name+'.pdf'}</p>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex gap-1.5 items-center">

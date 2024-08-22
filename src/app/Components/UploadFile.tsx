@@ -2,8 +2,9 @@
 
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useCourseStore } from "../store";
+import { cn } from "@/lib/utils";
 
 const FILE_SIZE_LIMIT = 25 * 1024 * 1024; // 25 MB
 
@@ -16,7 +17,18 @@ function DragDrop() {
     updateFileURL,
     errors,
     updateErrors,
+    removeErrors,
   } = useCourseStore();
+
+  const uploadingError = useMemo(() => {
+    return (
+      errors.find((error) => error.errorFor === "upload") ?? {
+        message: "",
+        error: false,
+        errorFor: "upload",
+      }
+    );
+  }, [errors]);
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -29,8 +41,7 @@ function DragDrop() {
         errorFor: "upload",
       });
       return;
-    }
-    if (droppedFile.size > FILE_SIZE_LIMIT) {
+    } else if (droppedFile.size > FILE_SIZE_LIMIT) {
       setErrorMessage("File size exceeds the 25 MB limit.");
       updateErrors({
         message: "File size exceeds the 25 MB limit.",
@@ -38,27 +49,26 @@ function DragDrop() {
         errorFor: "upload",
       });
       return;
+    } else {
+      convertToBlobAndSave(droppedFile);
+      removeErrors("upload");
+      return;
     }
   };
 
   //HANDLE MANUAL UPLOAD
   const handleUpload = (event: any) => {
-    let blobFile: Blob;
     const droppedFile = event.target.files[0];
-    setFile(droppedFile);
     handleErrors(droppedFile);
-    blobFile = new Blob([droppedFile], { type: droppedFile.type });
+  };
 
+  const convertToBlobAndSave = (droppedFile: File) => {
+    setFile(droppedFile);
+    let blobFile: Blob;
+    blobFile = new Blob([droppedFile], { type: droppedFile.type });
     const blobURL = URL.createObjectURL(blobFile);
     updateFileURL(blobURL);
     setFileUrl(blobURL);
-    // const link = document.createElement("a");
-    // link.href = blobURL;
-    // link.download = "downloaded-file";
-    // document.body.appendChild(link);
-
-    // link.click();
-
     readPDF(droppedFile);
   };
 
@@ -66,24 +76,11 @@ function DragDrop() {
   const handleDrop = (event: any) => {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
-    setFile(droppedFile);
     handleErrors(droppedFile);
-    let blobFile = new Blob([droppedFile], { type: droppedFile.type });
-    const blobURL = URL.createObjectURL(blobFile);
-    updateFileURL(blobURL);
-    setFileUrl(blobURL);
-    readPDF(droppedFile);
   };
 
   const readPDF = (file: File) => {
     updateUploadedCourseWork(file);
-    // const reader = new FileReader();
-    // reader.onload = (e) => {
-    //   const content = reader.result as string;
-    //   // localStorage.setItem("uploadedCourseWork", content);
-    //   setErrorMessage(null);
-    // };
-    // reader.readAsDataURL(file);
   };
 
   return (
@@ -128,16 +125,19 @@ function DragDrop() {
             </div>
             <label
               htmlFor="file-upload"
-              className="cursor-pointer text-zuai-purple-100 border  px-4 py-2 shadow-sm opacity-95 shadow-zuai-purple-50  hover:bg-blue-200 rounded-3xl"
+              className={cn(
+                uploadingError.error ? "border-red-500" : "",
+                "cursor-pointer text-zuai-purple-100 border  px-4 py-2 shadow-sm opacity-95 shadow-zuai-purple-50  hover:bg-blue-200 rounded-3xl"
+              )}
             >
               Upload your file
             </label>
+            <p className="text-red-500 text-xs">{uploadingError.message}</p>
             <Input
               onChange={handleUpload}
               id="file-upload"
               type="file"
               className="hidden"
-              // Additional file input properties here
             />
           </>
         )}

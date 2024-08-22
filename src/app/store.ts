@@ -24,12 +24,14 @@ type CourseStore = {
     error: boolean;
     errorFor: string;
   }[];
+  setCourseWork: (data: any) => void;
   updateUploadedCourseWork: (file: File) => void;
   updateFileURL: (fileURL: string) => void;
   updateName: (name: string) => void;
   updateSubject: (name: string) => void;
   updateCourseworkType: (name: string) => void;
   updateSubmissions: (data: any) => void;
+  removeErrors: (errorFor: string) => void;
   updateErrors: (errorObj: {
     message: string;
     error: boolean;
@@ -40,13 +42,16 @@ type CourseStore = {
 export const useCourseStore = create<CourseStore>((set) => ({
   submissions: [],
   uploadedCourseWork: {
-    content: "",//bas64
-    fileUrl: "",//bloburl
+    content: "", //bas64
+    fileUrl: "", //bloburl
     name: "",
     courseType: "",
     subject: "",
   },
   errors: [],
+
+  setCourseWork: (data: any) =>
+    set((state) => ({ ...state, uploadedCourseWork: data })),
   updateUploadedCourseWork: (file: File) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -60,7 +65,11 @@ export const useCourseStore = create<CourseStore>((set) => ({
     };
     reader.readAsDataURL(file);
   },
-
+  removeErrors: (errorFor: string) =>
+    set((state) => ({
+      ...state,
+      errors: state.errors.filter((error) => error.errorFor !== errorFor),
+    })),
   updateErrors: (errorObj: {
     message: string;
     error: boolean;

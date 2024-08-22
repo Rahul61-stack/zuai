@@ -13,7 +13,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = '//unpkg.com/pdfjs-dist@4.4.168/build/pdf.
 // const workerSrc = '`//cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS.version}/pdf.worker.min.js`';
 // PDFJS.GlobalWorkerOptions.workerSrc = workerSrc;
 const PDFViewer = ({ scale }: { scale: number }) => {
-  const fileUrl = useCourseStore((state) => state.uploadedCourseWork.fileUrl);
+  const fileUrl = useCourseStore((state) => state.uploadedCourseWork.content);
   return (
     <div className="overflow-x-scroll w-full max-w-full">
       {fileUrl !== "" && (
