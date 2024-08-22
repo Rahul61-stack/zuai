@@ -128,7 +128,7 @@ function DragDrop() {
               htmlFor="file-upload"
               className={cn(
                 uploadingError.error ? "border-red-500" : "",
-                "cursor-pointer text-zuai-purple-100 border  px-4 py-2 shadow-sm opacity-95 shadow-zuai-purple-50  hover:bg-blue-200 rounded-3xl"
+                "cursor-pointer text-zuai-purple-100 border  px-4 py-2 shadow-sm opacity-95 shadow-zuai-purple-50  hover:bg-slate-100 rounded-3xl transition ease-in-out duration-300"
               )}
             >
               Upload your file

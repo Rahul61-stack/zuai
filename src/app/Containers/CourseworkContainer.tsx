@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 import { useCourseStore } from "../store";
 import { useRouter } from "next/navigation";
 import { subjectKeyMap } from "../Constants/constants";
+import CourseworkCard from "../Components/CourseworkCard";
 pdfjs.GlobalWorkerOptions.workerSrc =
   "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
-
 
 const CourseworkContainer = () => {
   const { setCourseWork } = useCourseStore();
@@ -49,7 +49,7 @@ const CourseworkContainer = () => {
               selectedType === "all"
                 ? "bg-white text-zuai-purple-100"
                 : "text-[#7A8196]",
-              " text-[16px] font-medium p-3 rounded-xl"
+              " text-[16px] font-medium p-3 rounded-xl cursor-pointer hover:scale-105 transition-transform ease-in-out duration-300"
             )}
             key="all"
           >
@@ -62,7 +62,7 @@ const CourseworkContainer = () => {
                 selectedType === type.value
                   ? "bg-white text-zuai-purple-100"
                   : "bg-zuai-slate-100 text-[#7A8196]",
-                " text-[16px] font-medium p-3 rounded-xl"
+                " text-[16px] font-medium p-3 rounded-xl cursor-pointer hover:scale-105 "
               )}
               key={type.value}
             >
@@ -75,7 +75,7 @@ const CourseworkContainer = () => {
       )}
       <div className="md:grid md:grid-cols-2 flex flex-col mx-2 gap-4 md:justify-center">
         {essayDataToShow.map((data: any, index: number) => (
-          <div key={index}>
+          <div key={index} className="transition ease-in-out duration-300">
             <MobileView>
               <div
                 onClick={() => handleSetCourse(data)}
@@ -135,9 +135,6 @@ const CourseworkContainer = () => {
               >
                 <Document
                   file={data.content}
-                  onLoadError={(error) =>
-                    console.error("Error loading PDF:", error)
-                  }
                   options={{
                     cMapUrl: "/cmaps/",
                     standardFontDataUrl: "/standard_fonts/",
@@ -152,72 +149,7 @@ const CourseworkContainer = () => {
                     pageNumber={1}
                   />
                 </Document>
-                <div
-                  key={index}
-                  className=" flex flex-col gap-2 justify-start items-start  "
-                >
-                  <p className="text-lg font-semibold">{data.name}</p>
-                  <p className="text-[#7A8196] text-[11px] font-medium">
-                    Description
-                  </p>
-                  <div className="flex gap-1 flex-wrap">
-                    <div className="flex bg-white rounded-3xl">
-                      <Image
-                        alt="logo"
-                        src="/avatar.png"
-                        width="13"
-                        height="16"
-                      />
-                      <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                        {data.subject}
-                      </p>
-                    </div>
-                    <div className="flex bg-white rounded-3xl">
-                      <Image
-                        alt="logo"
-                        src="/time.png"
-                        width="13"
-                        height="16"
-                      />
-                      <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                        10 min read
-                      </p>
-                    </div>
-                    <div className="flex bg-white rounded-3xl">
-                      <Image
-                        alt="logo"
-                        src="/icon.png"
-                        width="13"
-                        height="16"
-                      />
-                      <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                        2000 words
-                      </p>
-                    </div>
-                    <div className="flex bg-white rounded-3xl">
-                      <Image
-                        alt="logo"
-                        src="/star.png"
-                        width="13"
-                        height="16"
-                      />
-                      <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                        {"8/10"}
-                      </p>
-                    </div>
-                    <div className="flex bg-white rounded-3xl">
-                      <Image
-                        alt="logo"
-                        src="/pencil.png"
-                        width="13"
-                        height="16"
-                      />
-                      <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                        {"English"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <CourseworkCard data={data} index={index} />
               </div>
             </BrowserView>
           </div>
@@ -225,7 +157,7 @@ const CourseworkContainer = () => {
       </div>
       <div onClick={() => setViewAll((prev) => !prev)}>
         <p className="text-center text-[#98A1BB] text-lg cursor-pointer py-4">
-          View all
+          {viewAll?"View less":"View all"}
         </p>
       </div>
     </div>

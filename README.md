@@ -20,17 +20,39 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+Assumptions made during development:
 
-To learn more about Next.js, take a look at the following resources:
+## List of features:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Key Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **File Upload**:
+   - Drag-and-drop functionality for PDF files.
+   - Manual file upload option.
+   - Displays file size limit ("Limit 25 MB per file").
+   - Files stored locally in the browser's local storage.
 
-## Deploy on Vercel
+2. **Local Storage Implementation**:
+   - Uploaded files and their metadata are saved locally.
+   - Persistent data across page reloads.
+   - Efficient retrieval of stored files and metadata.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Coursework Details Form**:
+   - Dropdowns for selecting "Coursework Type" and "Subject".
+   - Text input for the essay title.
+   - Form data is stored locally along with the associated file.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. **Evaluation Display**:
+   - Dummy data is used for evaluation purposes.
+   - Shows overall score with a circular progress indicator.
+   - Breakdown of scores by criteria (A, B, C).
+   - Evaluation date displayed.
+   - Evaluation results are stored and retrieved locally.
+
+5. **Coursework List**:
+   - Displays previously uploaded coursework from local storage.
+   - Shows relevant details such as title, subject, word count, etc.
+
+   ## Bonus Features
+
+   

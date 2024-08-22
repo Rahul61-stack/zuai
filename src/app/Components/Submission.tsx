@@ -10,6 +10,12 @@ import { useCourseStore } from "../store";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { TooltipContent } from "@radix-ui/react-tooltip";
 
 const Submission = () => {
   const router = useRouter();
@@ -59,25 +65,35 @@ const Submission = () => {
           />
         </div>
         <div className="">
-          <Button
-            className={cn(
-              evaluationDisabled ? " bg-zuai-grey-400 " : "bg-zuai-purple-100",
-              "p-2 rounded-3xl"
-            )}
-            onClick={() => handleSubmission()}
-            disabled={evaluationDisabled}
-          >
-            <div className="flex">
-              <Image
-                alt="buttonimg"
-                height={24}
-                width={24}
-                src="/buttonimg.png"
-                className="bg-white rounded-full mr-2"
-              />
-              <p className="text-white">Evaluate your score</p>
-            </div>
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                {" "}
+                <Button
+                  className={cn(
+                    evaluationDisabled
+                      ? " bg-zuai-grey-400 "
+                      : "bg-zuai-purple-100",
+                    "p-2 rounded-3xl cursor-pointer"
+                  )}
+                  onClick={() => handleSubmission()}
+                  disabled={evaluationDisabled}
+                >
+                  <div className="flex items-center">
+                    <Image
+                      alt="buttonimg"
+                      height={24}
+                      width={24}
+                      src="/buttonimg.png"
+                      className="bg-white rounded-full mr-2"
+                    />
+                    <p className="text-white">Evaluate your score</p>
+                  </div>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent></TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </>
