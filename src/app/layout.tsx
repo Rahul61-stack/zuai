@@ -28,10 +28,12 @@ export default function RootLayout({
       <div className="md:h-screen md:w-[52px] md:border-r-1 md:bg-white md:fixed md:top-0 md:left-0 md:flex-shrink-0">
         <Sidebar showMenu={true} />
       </div> */}
-        <div className=" md: md:h-screen md:w-[52px] sm:w-full md:border-r-1 md:bg-white md:fixed md:top-0 md:left-0 md:flex-shrink-0">
-          <Sidebar />
-        </div>
+<div className="flex flex-col md:flex-row">
+
+        <Sidebar />
+
         {children}
+</div>
       </body>
     </html>
   );

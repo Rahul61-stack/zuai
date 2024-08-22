@@ -12,6 +12,9 @@ import { subjectKeyMap } from "../Constants/constants";
 pdfjs.GlobalWorkerOptions.workerSrc =
   "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
 
+import { isMobile } from "react-device-detect";
+console.log("Is Mobile:", isMobile);
+
 const CourseworkContainer = () => {
   const { setCourseWork } = useCourseStore();
   const [viewAll, setViewAll] = useState(false);
@@ -94,14 +97,12 @@ const CourseworkContainer = () => {
                       height="16"
                     />
                     <p className="text-[11px] pt-0.5 pr-2 pb-0.5 pl-0.5">
-                      {subjectKeyMap[`${data.subject}`] }
+                      {subjectKeyMap[`${data.subject}`]}
                     </p>
                   </div>
                   <div className="flex bg-white rounded-3xl">
                     <Image alt="logo" src="/time.png" width="13" height="16" />
-                    <p className="text-[11px] py-0.5 px-2">
-                      10 min read
-                    </p>
+                    <p className="text-[11px] py-0.5 px-2">10 min read</p>
                   </div>
                   <div className="flex bg-white rounded-3xl">
                     <Image alt="logo" src="/icon.png" width="13" height="16" />
