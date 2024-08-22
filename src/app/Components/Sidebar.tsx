@@ -3,10 +3,8 @@ import HamburgerMenu from "./HamburgerMenu";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { BrowserView, MobileView } from "react-device-detect";
-import { isMobile } from "react-device-detect";
 
 const Sidebar = () => {
-  console.log("Is Mobile:", isMobile);
   return (
     <div>
       <div 
@@ -16,9 +14,7 @@ const Sidebar = () => {
       >
         <div className="flex sm:flex-row md:flex-col gap-2 items-center">
           <Image alt="logo" height={36} width={36} src="/logo.png" />
-          {isMobile ? (
-            <></>
-          ) : (
+          
             <div className="hidden md:flex sm:flex-row md:flex-col gap-4 items-center">
               <Image alt="logo" src="/logo2_left.png" width="36" height="36" />
               <Image alt="logo" src="/book_4_left.png" width="19" height="17" />
@@ -30,7 +26,6 @@ const Sidebar = () => {
               />
               <Image alt="logo" src="/quiz_left.png" width="19" height="17" />
             </div>
-          )}
         </div>
         <div className="md:hidden">
 

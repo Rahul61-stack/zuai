@@ -12,8 +12,6 @@ import { subjectKeyMap } from "../Constants/constants";
 pdfjs.GlobalWorkerOptions.workerSrc =
   "//unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
 
-import { isMobile } from "react-device-detect";
-console.log("Is Mobile:", isMobile);
 
 const CourseworkContainer = () => {
   const { setCourseWork } = useCourseStore();
